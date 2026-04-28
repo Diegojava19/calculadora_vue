@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora Vue</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <style>
+    body {
+      font-family: Arial;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f0f0f0;
+    }
+
+    .container {
+      background: white;
+      padding: 24px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 300px;
+      text-align: center;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin: 8px 0;
+    }
+
+    h2 {
+      margin-top: 16px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" class="container">
+    <h1>Calculadora</h1>
+
+    <input type="number" v-model.number="num1" placeholder="Número 1">
+    
+    <select v-model="operacao">
+      <option value="+">Soma</option>
+      <option value="-">Subtração</option>
+      <option value="*">Multiplicação</option>
+      <option value="/">Divisão</option>
+    </select>
+
+    <input type="number" v-model.number="num2" placeholder="Número 2">
+
+    <h2>Resultado: {{ resultado }}</h2>
+  </div>
+
+  <script>
+    const { createApp } = Vue;
+
+    createApp({
+      data() {
+        return {
+          num1: 0,
+          num2: 0,
+          operacao: "+"
+        }
+      },
+
+      computed: {
+        resultado() {
+          switch (this.operacao) {
+            case "+": return this.num1 + this.num2;
+            case "-": return this.num1 - this.num2;
+            case "*": return this.num1 * this.num2;
+            case "/": return this.num2 !== 0 ? this.num1 / this.num2 : "Erro";
+          }
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
